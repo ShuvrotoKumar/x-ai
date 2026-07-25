@@ -1,85 +1,37 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
+import React from "react";
 import { cn } from "@/lib/utils";
-import { RiMenu4Line, RiCloseLine } from "react-icons/ri";
+import { 
+  RiSearchLine, 
+  RiNotification3Line, 
+  RiGridFill,
+} from "react-icons/ri";
 
 export const Navbar = () => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const { scrollY } = useScroll();
-  
-  const backgroundColor = useTransform(
-    scrollY,
-    [0, 100],
-    ["rgba(0, 0, 0, 0)", "rgba(10, 10, 10, 0.8)"]
-  );
-  
-  const backdropBlur = useTransform(
-    scrollY,
-    [0, 100],
-    ["blur(0px)", "blur(12px)"]
-  );
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: "Product", href: "#product" },
-    { name: "Workflow", href: "#workflow" },
-    { name: "Intelligence", href: "#intelligence" },
-    { name: "Enterprise", href: "#enterprise" },
-  ];
-
   return (
-    <motion.nav
-      style={{
-        backgroundColor,
-        backdropFilter: backdropBlur,
-      }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 transition-all duration-300",
-        isScrolled ? "border-b border-white/10 py-3" : "py-6"
-      )}
-    >
-      <div className="flex items-center gap-8">
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <div className="w-4 h-4 bg-black rounded-sm rotate-45" />
-          </div>
-          <span className="text-xl font-bold tracking-tight text-white">XAI</span>
-        </Link>
-        
-        <div className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium text-neutral-400 hover:text-white transition-colors duration-200"
-            >
-              {link.name}
-            </Link>
-          ))}
+    <nav className="h-16 border-b border-white/5 flex items-center justify-between px-8 bg-[#05070A]/80 backdrop-blur-md sticky top-0 z-50">
+      <div className="flex-1 max-w-2xl mx-auto px-4">
+        <div className="relative group">
+          <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-[#5F85FF] transition-colors" />
+          <input 
+            type="text" 
+            placeholder="Search workspace..." 
+            className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-neutral-300 outline-none focus:border-[#5F85FF]/50 focus:bg-white/[0.08] transition-all"
+          />
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <button className="hidden md:block text-sm font-medium text-neutral-400 hover:text-white transition-colors duration-200">
-          Log in
-        </button>
-        <button className="px-4 py-2 bg-white text-black text-sm font-semibold rounded-full hover:bg-neutral-200 transition-all duration-200 active:scale-95">
-          Get Started
-        </button>
-        <button className="md:hidden text-white text-2xl">
-          <RiMenu4Line />
-        </button>
+      <div className="flex items-center gap-5">
+        <div className="relative cursor-pointer group">
+          <RiNotification3Line className="text-neutral-400 text-xl group-hover:text-white transition-colors" />
+          <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-[#5F85FF] rounded-full border border-[#05070A]" />
+        </div>
+        <RiGridFill className="text-neutral-400 text-xl cursor-pointer hover:text-white transition-colors" />
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-700 to-neutral-900 border border-white/10 overflow-hidden cursor-pointer">
+          <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" className="w-full h-full object-cover" />
+        </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 };

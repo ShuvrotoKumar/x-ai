@@ -1,21 +1,17 @@
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
-import { Workflow } from "@/components/Workflow";
-import { Dashboard } from "@/components/Dashboard";
-import { WowSection } from "@/components/WowSection";
-import { SignatureSection } from "@/components/SignatureSection";
-import { Footer } from "@/components/Footer";
+import { Sidebar } from "@/components/Sidebar";
 
 export default function Home() {
   return (
-    <main className="relative bg-black min-h-screen">
-      <Navbar />
-      <Hero />
-      <Workflow />
-      <Dashboard />
-      <WowSection />
-      <SignatureSection />
-      <Footer />
-    </main>
+    <div className="flex h-screen overflow-hidden bg-[#05070A]">
+      <Sidebar />
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto scrollbar-hide">
+        <Navbar />
+        <main className="flex-1">
+          <Hero />
+        </main>
+      </div>
+    </div>
   );
 }
