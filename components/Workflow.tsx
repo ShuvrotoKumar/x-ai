@@ -1,124 +1,104 @@
 "use client";
 
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { cn } from "@/lib/utils";
+import React from "react";
+import { motion } from "framer-motion";
 import { RiDatabase2Line, RiAiGenerate, RiNotificationBadgeLine } from "react-icons/ri";
 
-const WorkflowCard = ({ 
-  icon: Icon, 
-  title, 
-  description, 
-  index 
-}: { 
-  icon: any, 
-  title: string, 
-  description: string, 
-  index: number 
-}) => {
+interface WorkflowStep {
+  icon: any;
+  title: string;
+  description: string;
+}
+
+const WorkflowCard = ({
+  icon: Icon,
+  title,
+  description,
+  index,
+  isCenter,
+}: WorkflowStep & { index: number; isCenter: boolean }) => {
+  const number = String(index + 1).padStart(2, "0");
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay: index * 0.2 }}
-      whileHover={{ y: -8, transition: { duration: 0.2 } }}
-      className="relative group"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className={`relative ${isCenter ? "md:-translate-y-6" : ""}`}
     >
-      <div className="absolute -inset-0.5 bg-gradient-to-b from-white/20 to-transparent rounded-2xl blur opacity-0 group-hover:opacity-100 transition duration-500" />
-      <div className="relative bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 h-full flex flex-col gap-4">
-        <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 group-hover:border-white/20 transition-colors">
-          <Icon className="text-2xl text-white" />
+      <div
+        className={`relative rounded-3xl border p-7 h-80 flex flex-col justify-between overflow-hidden backdrop-blur-sm ${
+          isCenter
+            ? "border-white/15 bg-gradient-to-b from-[#161a30] to-[#0a0d1a] shadow-2xl shadow-indigo-900/40"
+            : "border-white/10 bg-[#0d0f1a]/60"
+        }`}
+      >
+        {/* Faint oversized index number */}
+        <span className="absolute -top-3 right-3 text-7xl font-bold text-white/[0.06] select-none leading-none">
+          {number}
+        </span>
+
+        {/* Small dot marker — sits on the connector line */}
+        <span className="absolute top-10 right-9 w-2 h-2 rounded-full bg-white/30" />
+
+        {/* Top icon / center logo */}
+        <div className="relative z-10">
+          {isCenter ? (
+            <div className="flex items-center gap-1.5 text-white font-semibold text-lg">
+              <span className="text-indigo-400">✦</span> RK
+            </div>
+          ) : (
+            <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
+              <Icon className="text-base text-white/80" />
+            </div>
+          )}
         </div>
-        <h3 className="text-xl font-bold text-white">{title}</h3>
-        <p className="text-neutral-500 leading-relaxed">{description}</p>
-        
-        <div className="mt-auto pt-6 flex items-center gap-2 text-xs font-semibold text-neutral-400 uppercase tracking-widest">
-          Step {index + 1}
+
+        {/* Title + description */}
+        <div className="relative z-10">
+          <h3 className="text-white font-semibold text-base mb-2">{title}</h3>
+          <p className="text-sm text-neutral-400 leading-relaxed">{description}</p>
         </div>
       </div>
     </motion.div>
   );
 };
 
-const ConnectingLine = ({ 
-  className, 
-  direction = "horizontal" 
-}: { 
-  className?: string, 
-  direction?: "horizontal" | "vertical" 
-}) => {
-  return (
-    <div className={cn("relative", className)}>
-      <div className={cn(
-        "absolute bg-white/10 overflow-hidden",
-        direction === "horizontal" ? "w-full h-px top-1/2 -translate-y-1/2" : "h-full w-px left-1/2 -translate-x-1/2"
-      )}>
-        <motion.div
-          animate={direction === "horizontal" ? { x: ["-100%", "100%"] } : { y: ["-100%", "100%"] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-          className={cn(
-            "bg-gradient-to-r from-transparent via-blue-500 to-transparent",
-            direction === "horizontal" ? "h-full w-40" : "w-full h-40"
-          )}
-        />
-      </div>
-    </div>
-  );
-};
-
 export const Workflow = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const workflowSteps = [
+  const workflowSteps: WorkflowStep[] = [
     {
       icon: RiDatabase2Line,
-      title: "Data Ingestion",
-      description: "Connect your raw data sources. We support SQL, NoSQL, and vector databases out of the box."
+      title: "Ingest Data",
+      description:
+        "Connect disparate sources seamlessly with over 200+ native integrations and automated pipeline orchestration.",
     },
     {
       icon: RiAiGenerate,
-      title: "Neural Mapping",
-      description: "Our proprietary AI models structure your data into a semantic graph of interconnected intelligence."
+      title: "Analyze with AI",
+      description:
+        "Our neural engines synthesize patterns, detect anomalies, and structuralize unstructured text in real-time.",
     },
     {
       icon: RiNotificationBadgeLine,
-      title: "Autonomous Action",
-      description: "Trigger workflows and autonomous agents that act on insights in real-time without human intervention."
-    }
+      title: "Generate Insight",
+      description:
+        "Convert raw synthesis into actionable intelligence, reports, and automated decision-making protocols.",
+    },
   ];
 
   return (
-    <section id="workflow" className="py-24 bg-black relative overflow-hidden" ref={containerRef}>
+    <section id="workflow" className="py-24 bg-gradient-to-b from-[#05070d] to-black relative overflow-hidden">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-4xl md:text-5xl font-bold text-white mb-6"
-          >
-            Streamlined Intelligence
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-neutral-500 max-w-2xl mx-auto text-lg"
-          >
-            A unified pipeline from raw information to automated results.
-          </motion.p>
-        </div>
+        <div className="relative max-w-6xl mx-auto">
+          {/* Horizontal connector line running through the dot markers */}
+          <div className="hidden md:block absolute left-0 right-0 top-[40px] h-px bg-gradient-to-r from-transparent via-indigo-400/30 to-transparent" />
 
-        <div className="relative grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
-          {/* Desktop Connecting Lines */}
-          <ConnectingLine className="hidden md:block absolute top-[60px] left-[25%] w-[16%] z-0" />
-          <ConnectingLine className="hidden md:block absolute top-[60px] right-[25%] w-[16%] z-0" />
-
-          {workflowSteps.map((step, i) => (
-            <WorkflowCard key={i} {...step} index={i} />
-          ))}
+          <div className="relative grid md:grid-cols-3 gap-6 items-start">
+            {workflowSteps.map((step, i) => (
+              <WorkflowCard key={i} {...step} index={i} isCenter={i === 1} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
