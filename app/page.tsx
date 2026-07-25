@@ -4,6 +4,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { Workflow } from "@/components/Workflow";
 import { Dashboard } from "@/components/Dashboard";
 import { Architecture } from "@/components/Architecture";
+import { Metrics } from "@/components/Metrics";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           <Workflow />
           <Dashboard />
           <Architecture />
+          <Metrics />
         </main>
       </div>
     </div>
