@@ -35,13 +35,14 @@ export const Navbar = () => {
           <span className="absolute top-0 right-0 w-1.5 h-1.5 bg-[#5F85FF] rounded-full border border-[#05070A]" />
         </div>
         <RiGridFill className="text-neutral-400 text-lg cursor-pointer hover:text-white transition-colors" />
-        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-neutral-700 to-neutral-900 border border-white/10 overflow-hidden cursor-pointer">
+        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-neutral-700 to-neutral-900 border border-white/10 overflow-hidden cursor-pointer flex-shrink-0">
           <Image 
             src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" 
             alt="User" 
-            width={32}
-            height={32}
+            width={40}
+            height={40}
             className="w-full h-full object-cover" 
+            unoptimized
           />
         </div>
       </div>
