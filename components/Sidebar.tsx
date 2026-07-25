@@ -27,10 +27,6 @@ const sidebarItems = [
 export const Sidebar = () => {
   return (
     <div className="w-[280px] h-screen bg-[#0B1221] border-r border-white/5 flex flex-col py-6 px-4 shrink-0">
-      <div className="flex items-center gap-3 px-4 mb-10">
-        <span className="text-white font-bold text-lg tracking-tight">Xai Intelligence</span>
-      </div>
-
       {/* Workspace Selector */}
       <div className="px-2 mb-8">
         <div className="flex items-center gap-3 p-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer hover:bg-white/10 transition-colors">
