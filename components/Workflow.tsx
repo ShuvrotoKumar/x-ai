@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { ComponentType, SVGProps } from "react";
 import { motion } from "framer-motion";
 import { RiDatabase2Line, RiAiGenerate, RiNotificationBadgeLine } from "react-icons/ri";
 
 interface WorkflowStep {
-  icon: any;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
   title: string;
   description: string;
 }
