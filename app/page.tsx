@@ -5,6 +5,7 @@ import { Workflow } from "@/components/Workflow";
 import { Dashboard } from "@/components/Dashboard";
 import { Architecture } from "@/components/Architecture";
 import { Metrics } from "@/components/Metrics";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
           <Architecture />
           <Metrics />
         </main>
+        <Footer />
       </div>
     </div>
   );

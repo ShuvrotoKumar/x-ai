@@ -11,6 +11,11 @@ import {
 export const Navbar = () => {
   return (
     <nav className="h-16 border-b border-white/5 flex items-center justify-between px-8 bg-[#05070A]/80 backdrop-blur-md sticky top-0 z-50">
+      {/* Logo */}
+      <div className="mr-8">
+        <span className="text-white font-bold text-sm tracking-tight">Xai Intelligence</span>
+      </div>
+
       <div className="flex-1 max-w-2xl mx-auto px-4">
         <div className="relative group">
           <RiSearchLine className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-500 group-focus-within:text-[#5F85FF] transition-colors" />
