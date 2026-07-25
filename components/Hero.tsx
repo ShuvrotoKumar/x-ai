@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import gsap from "gsap";
 
@@ -28,24 +27,22 @@ export const Hero = () => {
       tl.from(titleRef.current, {
         y: 20,
         opacity: 0,
-        duration: 1,
-        delay: 0.2
+        duration: 0.8
       })
       .from(descRef.current, {
         y: 20,
         opacity: 0,
-        duration: 1
-      }, "-=0.7")
-      .from(buttonGroupRef.current?.children || [], {
+        duration: 0.8
+      }, "-=0.6")
+      .from(buttonGroupRef.current, {
         y: 20,
         opacity: 0,
-        duration: 0.8,
-        stagger: 0.1
-      }, "-=0.7")
+        duration: 0.8
+      }, "-=0.6")
       .from(cardRef.current, {
         y: 40,
         opacity: 0,
-        duration: 1.2
+        duration: 1
       }, "-=0.5");
     }, containerRef);
 
@@ -62,27 +59,27 @@ export const Hero = () => {
           ref={titleRef}
           className="text-[13px] md:text-sm font-medium text-white mb-6 tracking-tight"
         >
-          Turn Raw Data Into Intelligence
+          Turn Real Data Into Intelligence
         </div>
 
         <p
           ref={descRef}
           className="max-w-xl mx-auto text-[13px] md:text-[15px] text-[#94A3B8] mb-12 leading-relaxed font-medium"
         >
-          Transform scattered information into structured insights and AI powered automation through our unified enterprise-grade workspace.
+          Transform scattered information into structured insights and power automation through our unified interface
         </p>
 
         <div
           ref={buttonGroupRef}
-          className="flex items-center justify-center gap-4 mb-24"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-24"
         >
           <button 
-            className="px-10 py-4 bg-[#6366f1] text-white text-[15px] font-bold rounded-xl hover:bg-[#4f46e5] transition-all duration-300 shadow-[0_0_40px_rgba(99,102,241,0.25)] hover:shadow-[0_0_50px_rgba(99,102,241,0.4)] active:scale-[0.98]"
+            className="w-full sm:w-auto px-8 py-3 bg-[#6366f1] hover:bg-[#4f46e5] text-white text-sm font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95"
           >
             Explore Workspace
           </button>
           <button 
-            className="px-10 py-4 bg-[#1E293B]/60 text-white text-[15px] font-bold rounded-xl border border-white/5 hover:bg-[#1E293B]/80 transition-all duration-300 hover:border-white/10 active:scale-[0.98]"
+            className="w-full sm:w-auto px-8 py-3 bg-transparent border border-white/20 hover:border-white/40 text-white text-sm font-bold rounded-lg transition-all duration-300 hover:bg-white/5 active:scale-95"
           >
             View Demo
           </button>
@@ -91,39 +88,47 @@ export const Hero = () => {
         {/* Workflow Diagram Card */}
         <div
           ref={cardRef}
-          className="relative w-full max-w-5xl mx-auto aspect-[16/8] bg-[#0B1221]/40 border border-white/5 rounded-[40px] p-12 overflow-hidden flex flex-col justify-center backdrop-blur-sm"
+          className="relative w-full max-w-4xl mx-auto bg-gradient-to-br from-[#0F1419] to-[#0B1221] border border-white/10 rounded-[24px] p-16 overflow-hidden backdrop-blur-sm"
         >
-          {/* Subtle Grid Lines */}
-          <div className="absolute inset-0 grid grid-cols-6 grid-rows-4 pointer-events-none">
-            {Array.from({ length: 24 }).map((_, i) => (
-              <div key={i} className="border-[0.5px] border-white/[0.03]" />
-            ))}
+          {/* Subtle Background Glow */}
+          <div className="absolute inset-0 rounded-[24px] pointer-events-none opacity-20">
+            <div className="absolute inset-0 bg-gradient-to-b from-white/5 via-transparent to-transparent rounded-[24px]" />
           </div>
 
-          <div className="relative h-full grid grid-cols-3 items-center gap-x-8">
-            <div className="flex justify-center">
+          {/* SVG Connection Lines */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none">
+            {/* Middle horizontal line extending across full width */}
+            <line x1="0" y1="50%" x2="100%" y2="50%" stroke="rgba(100, 150, 255, 0.25)" strokeWidth="2" strokeDasharray="6,4" />
+            
+            {/* Vertical line from middle to Raw Data */}
+            <line x1="12%" y1="50%" x2="12%" y2="30%" stroke="rgba(100, 150, 255, 0.25)" strokeWidth="2" strokeDasharray="6,4" />
+            
+            {/* Vertical line from middle to Knowledge Graph */}
+            <line x1="50%" y1="50%" x2="50%" y2="30%" stroke="rgba(100, 150, 255, 0.25)" strokeWidth="2" strokeDasharray="6,4" />
+            
+            {/* Vertical line from middle to Automation */}
+            <line x1="88%" y1="50%" x2="88%" y2="30%" stroke="rgba(100, 150, 255, 0.25)" strokeWidth="2" strokeDasharray="6,4" />
+            
+            {/* Vertical line from middle to AI Engine */}
+            <line x1="12%" y1="50%" x2="12%" y2="70%" stroke="rgba(100, 150, 255, 0.25)" strokeWidth="2" strokeDasharray="6,4" />
+            
+            {/* Vertical line from middle to Insights */}
+            <line x1="88%" y1="50%" x2="88%" y2="70%" stroke="rgba(100, 150, 255, 0.25)" strokeWidth="2" strokeDasharray="6,4" />
+          </svg>
+
+          <div className="relative h-72 flex flex-col justify-between">
+            {/* Top Row - 3 nodes equally spaced */}
+            <div className="flex justify-between items-center">
               <WorkflowNode label="Raw Data" />
-            </div>
-            <div className="flex justify-center">
               <WorkflowNode label="Knowledge Graph" />
-            </div>
-            <div className="flex justify-center">
               <WorkflowNode label="Automation" />
             </div>
-            
-            <div className="col-span-3 grid grid-cols-2 mt-12 px-24">
-               <div className="flex justify-center">
-                  <WorkflowNode label="AI Engine" className="bg-[#5F85FF]/10 border-[#5F85FF]/20 text-[#5F85FF]" />
-               </div>
-               <div className="flex justify-center">
-                  <WorkflowNode label="Insights" />
-               </div>
-            </div>
-          </div>
 
-          <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-10">
-             <div className="absolute top-1/2 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-white to-transparent rotate-12" />
-             <div className="absolute top-1/2 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-white to-transparent -rotate-12" />
+            {/* Bottom Row - 2 nodes at edges */}
+            <div className="flex justify-between items-center">
+              <WorkflowNode label="AI Engine" />
+              <WorkflowNode label="Insights" />
+            </div>
           </div>
         </div>
       </div>
