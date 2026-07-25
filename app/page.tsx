@@ -3,6 +3,7 @@ import { Hero } from "@/components/Hero";
 import { Sidebar } from "@/components/Sidebar";
 import { Workflow } from "@/components/Workflow";
 import { Dashboard } from "@/components/Dashboard";
+import { Architecture } from "@/components/Architecture";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
           <Hero />
           <Workflow />
           <Dashboard />
+          <Architecture />
         </main>
       </div>
     </div>
